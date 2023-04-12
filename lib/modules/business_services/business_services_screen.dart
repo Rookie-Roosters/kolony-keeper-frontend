@@ -10,24 +10,19 @@ class BusinessServicesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoTabsRouter(
+    return AutoTabsRouter.tabBar(
       routes: const [
         BusinessServicesInterestGroupsRoute(),
         BusinessServicesBusinessGroupsRoute(),
       ],
-      builder: (context, child) {
+      builder: (context, child, controller) {
         final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
-          appBar: AppBar(title: const Text('BusinessServices')),
           body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, mainAxisSize: MainAxisSize.max, children: [
-            CustomButton.elevated(
-              const Text('Interest Groups'),
-              onPressed: () => tabsRouter.navigate(const BusinessServicesInterestGroupsRoute()),
-            ),
-            CustomButton.elevated(
-              const Text('Business Groups'),
-              onPressed: () => tabsRouter.navigate(const BusinessServicesBusinessGroupsRoute()),
-            ),
+            CustomTabBar(controller: controller, tabs: const [
+              Tab(text: 'Interest Groups'),
+              Tab(text: 'Business Groups'),
+            ]),
             Expanded(child: child),
           ]),
         );

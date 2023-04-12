@@ -71,12 +71,12 @@ class SpacerBox {
   static const horizontal4 = SizedBox(width: kSpacing4);
   static const horizontal5 = SizedBox(width: kSpacing5);
 
-  static const vertical = SizedBox(width: kSpacing);
-  static const vertical1 = SizedBox(width: kSpacing1);
-  static const vertical2 = SizedBox(width: kSpacing2);
-  static const vertical3 = SizedBox(width: kSpacing3);
-  static const vertical4 = SizedBox(width: kSpacing4);
-  static const vertical5 = SizedBox(width: kSpacing5);
+  static const vertical = SizedBox(height: kSpacing);
+  static const vertical1 = SizedBox(height: kSpacing1);
+  static const vertical2 = SizedBox(height: kSpacing2);
+  static const vertical3 = SizedBox(height: kSpacing3);
+  static const vertical4 = SizedBox(height: kSpacing4);
+  static const vertical5 = SizedBox(height: kSpacing5);
 
   static Widget statusbar(BuildContext context) {
     return SizedBox(height: MediaQuery.of(context).padding.top);
