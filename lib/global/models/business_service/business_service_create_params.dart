@@ -8,8 +8,7 @@ part 'business_service_create_params.g.dart';
 class BusinessServiceCreateParams with _$BusinessServiceCreateParams {
 
   factory BusinessServiceCreateParams({
-    required String id, 
-    String? name, 
+    required String name, 
     BusinessGroup? group,
   }) = _BusinessServiceCreateParams;
 

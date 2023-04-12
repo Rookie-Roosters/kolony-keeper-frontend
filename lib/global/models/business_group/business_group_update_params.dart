@@ -4,12 +4,12 @@ part 'business_group_update_params.freezed.dart';
 part 'business_group_update_params.g.dart';
 
 @freezed
-class BusinessGroupUpdateParamas with _$BusinessGroupUpdateParamas {
+class BusinessGroupUpdateParams with _$BusinessGroupUpdateParams {
 
-  factory BusinessGroupUpdateParamas({
+  factory BusinessGroupUpdateParams({
     String? name, 
     List<String>? tags,
-  }) = _BusinessGroupUpdateParamas;
+  }) = _BusinessGroupUpdateParams;
 
-  factory BusinessGroupUpdateParamas.fromJson(Map<String, dynamic> json) => _$BusinessGroupUpdateParamasFromJson(json);
+  factory BusinessGroupUpdateParams.fromJson(Map<String, dynamic> json) => _$BusinessGroupUpdateParamsFromJson(json);
 }

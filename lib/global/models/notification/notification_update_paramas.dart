@@ -6,13 +6,13 @@ part 'notification_update_paramas.freezed.dart';
 part 'notification_update_paramas.g.dart';
 
 @freezed
-class NotificationUpdateParamas with _$NotificationUpdateParamas {
+class NotificationUpdateParams with _$NotificationUpdateParams {
 
-  factory NotificationUpdateParamas({
+  factory NotificationUpdateParams({
     // User? user, 
     // Device? device, 
     BusinessService? businessService, 
-  }) = _NotificationUpdateParamas;
+  }) = _NotificationUpdateParams;
 
-  factory NotificationUpdateParamas.fromJson(Map<String, dynamic> json) => _$NotificationUpdateParamasFromJson(json);
+  factory NotificationUpdateParams.fromJson(Map<String, dynamic> json) => _$NotificationUpdateParamsFromJson(json);
 }

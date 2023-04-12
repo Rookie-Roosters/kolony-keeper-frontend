@@ -4,11 +4,11 @@ part 'interest_group_delete_params.freezed.dart';
 part 'interest_group_delete_params.g.dart';
 
 @freezed
-class InterestGroupDelteParams with _$InterestGroupDelteParams {
+class InterestGroupDeleteParams with _$InterestGroupDeleteParams {
 
-  factory InterestGroupDelteParams({
+  factory InterestGroupDeleteParams({
     required String id,
-  }) = _InterestGroupDelteParams;
+  }) = _InterestGroupDeleteParams;
 
-  factory InterestGroupDelteParams.fromJson(Map<String, dynamic> json) => _$InterestGroupDelteParamsFromJson(json);
+  factory InterestGroupDeleteParams.fromJson(Map<String, dynamic> json) => _$InterestGroupDeleteParamsFromJson(json);
 }

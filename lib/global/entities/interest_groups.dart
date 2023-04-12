@@ -6,7 +6,6 @@ part 'interest_groups.g.dart';
 
 @freezed
 class InterestGroup with _$InterestGroup {
-
   factory InterestGroup({
     //required User user,  
     required String name,
