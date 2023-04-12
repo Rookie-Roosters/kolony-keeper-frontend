@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import 'core/app_router.dart';
+import 'core/config/config.dart';
 import 'core/themes/themes.dart';
 import 'global/repositories/repositories.dart';
 
@@ -10,6 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final authentication = await AuthenticationRepository.init();
   runApp(KolonyKeeperApp(authentication: authentication));
+  urlConfig();
 }
 
 class KolonyKeeperApp extends StatelessWidget {

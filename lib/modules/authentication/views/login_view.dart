@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/app_router.gr.dart';
 import '../../../global/components/components.dart';
 import '../../../global/models/models.dart';
 import '../../../global/repositories/repositories.dart';
@@ -30,7 +32,10 @@ class _LogInViewState extends State<LogInView> {
   handleLogIn() async {
     setState(() => isLoading = true);
     final res = await _authenticationRepository.logIn(AuthenticationLogInParams(email: emailField.text, password: passwordField.text));
-    res.fold((l) => message = l.message, (r) => message = r.toString());
+    res.fold((l) => message = l.message, (r) {
+      message = r.toString();
+      context.router.replace(const DashboardRoute());
+    });
     setState(() => isLoading = false);
   }
 

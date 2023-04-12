@@ -10,16 +10,32 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dashboard'),
-      ),
-      body: Center(
-        child: CustomButton.elevated(
-          const Text('/authentication'),
-          onPressed: () => context.router.navigate(const AuthenticationRoute()),
-        ),
-      ),
+    return AutoTabsRouter(
+      routes: const [
+        BusinessServicesRoute(),
+        AlertsRoute(),
+        IncidentsRoute(),
+        NotificationsRoute(),
+        UserRoute(),
+      ],
+      builder: (context, child) {
+        final tabsRouter = AutoTabsRouter.of(context);
+
+        return Scaffold(
+          body: child,
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: tabsRouter.activeIndex,
+            onTap: (index) => tabsRouter.setActiveIndex(index),
+            items: const [
+              BottomNavigationBarItem(label: 'Services', icon: Icon(Icons.accessible_rounded)),
+              BottomNavigationBarItem(label: 'Alerts', icon: Icon(Icons.accessible_rounded)),
+              BottomNavigationBarItem(label: 'Incidents', icon: Icon(Icons.accessible_rounded)),
+              BottomNavigationBarItem(label: 'Notifications', icon: Icon(Icons.accessible_rounded)),
+              BottomNavigationBarItem(label: 'User', icon: Icon(Icons.accessible_rounded)),
+            ],
+          ),
+        );
+      },
     );
   }
 }
