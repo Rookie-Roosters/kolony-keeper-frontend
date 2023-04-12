@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/app_router.gr.dart';
+import '../../core/themes/themes.dart';
 import '../../global/components/components.dart';
 
 @RoutePage()
@@ -10,24 +11,18 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoTabsRouter(
+    return AutoTabsRouter.tabBar(
       routes: const [
         UserProfileRoute(),
         UserDevicesRoute(),
       ],
-      builder: (context, child) {
-        final tabsRouter = AutoTabsRouter.of(context);
+      builder: (context, child, controller) {
         return Scaffold(
-          appBar: AppBar(title: const Text('User')),
           body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, mainAxisSize: MainAxisSize.max, children: [
-            CustomButton.elevated(
-              const Text('Profile'),
-              onPressed: () => tabsRouter.navigate(const UserProfileRoute()),
-            ),
-            CustomButton.elevated(
-              const Text('Devices'),
-              onPressed: () => tabsRouter.navigate(const UserDevicesRoute()),
-            ),
+            CustomTabBar(controller: controller, tabs: const [
+              Tab(text: 'Profile'),
+              Tab(text: 'Devices'),
+            ]),
             Expanded(child: child),
           ]),
         );

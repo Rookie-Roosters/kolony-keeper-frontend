@@ -27,9 +27,11 @@ class KolonyKeeperApp extends StatelessWidget {
         RepositoryProvider<IAuthenticationRepository>(create: (context) => _authentication),
       ],
       child: ResponsiveSizer(
+        maxMobileWidth: kTabletBreakpoint,
+        maxTabletWidth: kDesktopBreakpoint,
         builder: (context, orientation, screenType) {
           return MediaQuery(
-            data: MediaQueryData(textScaleFactor: 1.sp),
+            data: MediaQueryData(textScaleFactor: 1.dp),
             child: MaterialApp.router(
               theme: appTheme,
               debugShowCheckedModeBanner: false,

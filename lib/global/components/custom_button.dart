@@ -106,9 +106,6 @@ class CustomButtonState extends State<CustomButton> {
     final color = _isHovered ? widget.hoverColor : widget.color;
     final textColor = _isHovered ? widget.hoverTextColor : widget.textColor;
 
-    final prefix = widget.prefix is Icon ? Transform.translate(offset: const Offset(0.0, -3.0), child: widget.prefix) : widget.prefix;
-    final suffix = widget.suffix is Icon ? Transform.translate(offset: const Offset(0.0, -3.0), child: widget.suffix) : widget.suffix;
-
     return GestureDetector(
       onTap: widget.onPressed,
       onPanCancel: () => setPressed(false),
@@ -137,7 +134,7 @@ class CustomButtonState extends State<CustomButton> {
             child: AnimatedDefaultTextStyle(
               curve: _kCurve,
               duration: _kDuration,
-              style: kLabelStyle.copyWith(color: textColor, height: 1.5),
+              style: kLabelStyle.copyWith(color: textColor),
               child: AnimatedTheme(
                 curve: _kCurve,
                 duration: _kDuration,
@@ -149,9 +146,9 @@ class CustomButtonState extends State<CustomButton> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (prefix != null) prefix.paddingRight,
+                    if (widget.prefix != null) widget.prefix!.paddingRight,
                     widget.isBlock ? Expanded(child: widget.child.center()) : widget.child,
-                    if (suffix != null) suffix.paddingLeft,
+                    if (widget.suffix != null) widget.suffix!.paddingLeft,
                   ],
                 ),
               ),
