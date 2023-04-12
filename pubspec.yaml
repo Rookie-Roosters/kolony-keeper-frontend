@@ -1,0 +1,78 @@
+name: kolony_keeper
+description: Cross-platform service status tracker application designed for AstraZeneca
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.19.5 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  auto_route: ^6.0.4
+  bloc: ^8.1.1
+  dartz: ^0.10.1
+  dio: ^5.1.1
+  flutter_bloc: ^8.1.2
+  flutter_form_bloc: ^0.30.1
+  freezed_annotation: ^2.2.0
+  intl: ^0.17.0
+  json_annotation: ^4.8.0
+  flutter_secure_storage: ^8.0.0
+
+  modern_form_line_awesome_icons: ^2.0.1
+  cupertino_icons: ^1.0.2
+  envied: ^0.3.0
+  responsive_sizer: ^3.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  auto_route_generator: ^6.0.2
+  build_runner: ^2.3.3
+  flutter_lints: ^2.0.0
+  freezed: ^2.3.2
+  json_serializable: ^6.6.1
+  envied_generator: ^0.3.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/app/kolony-keeper/
+    - assets/app/rookie-roosters/
+    - assets/images/
+
+  fonts:
+    - family: Overpass
+      fonts:
+        - asset: assets/fonts/Overpass.ttf
+        - asset: assets/fonts/Overpass.ttf
+          weight: 500
+        - asset: assets/fonts/Overpass.ttf
+          weight: 700
+        - asset: assets/fonts/Overpass.ttf
+          weight: 900
+        - asset: assets/fonts/Overpass-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Overpass-Italic.ttf
+          style: italic
+          weight: 500
+        - asset: assets/fonts/Overpass-Italic.ttf
+          style: italic
+          weight: 700
+        - asset: assets/fonts/Overpass-Italic.ttf
+          style: italic
+          weight: 900
+    - family: NunitoSans
+      fonts:
+        - asset: assets/fonts/NunitoSans-Regular.ttf
+        - asset: assets/fonts/NunitoSans-Italic.ttf
+          style: italic
+        - asset: assets/fonts/NunitoSans-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/NunitoSans-BoldItalic.ttf
+          weight: 700
+          style: italic
