@@ -1,0 +1,42 @@
+name: Deploy Flutter Web App to Azure
+
+env:
+  AZURE_WEBAPP_NAME: kolony-keeper-client
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: stable
+
+      - name: Create .env file
+        run: echo "${{ secrets.FLUTTER_ENV_FILE }}" > .env
+
+      - name: Setup flutter
+        run: |
+          flutter config --enable-web
+          flutter pub get
+
+      - name: Build Flutter Web
+        run: |
+          flutter packages pub run build_runner build --delete-conflicting-outputs
+          flutter build web --release
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: "build/web"
