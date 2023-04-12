@@ -8,6 +8,8 @@ const Color kTertiaryColor = Color(0xFFF29F05);
 
 const Color kNeutralColor = Colors.white;
 const Color kBaseColor = Color(0xFFF2F2F2);
+const Color kMutedColor = Colors.black26;
+const Color kDividerColor = Colors.black12;
 
 const Color kSuccessColor = Colors.green;
 const Color kError = Colors.red;
@@ -27,7 +29,7 @@ const kLabelStyle = TextStyle(fontFamily: kBrandFont, fontSize: 14.0, height: 18
 const kCaptionStyle = TextStyle(fontFamily: kBrandFont, fontSize: 12.0, height: 14.0 / 12.0, fontWeight: FontWeight.normal, letterSpacing: 0.25);
 
 // General
-const kBorderRadius = 4.0;
+const kBorderRadius = 8.0;
 const kRoundedBorder = BorderRadius.all(Radius.circular(kBorderRadius));
 const kSpacing = 12.0;
 

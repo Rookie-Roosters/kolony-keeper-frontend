@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../core/app_router.gr.dart';
 import '../../../../core/themes/themes.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../global/components/components.dart';
@@ -18,6 +20,8 @@ class LogInForm extends StatelessWidget {
       create: (context) => LogInFormBloc(RepositoryProvider.of<IAuthenticationRepository>(context)),
       child: BlocBuilder<LogInFormBloc, FormBlocState>(builder: (context, state) {
         final bloc = BlocProvider.of<LogInFormBloc>(context);
+
+        if (state is FormBlocSuccess) context.router.replace(const DashboardRoute());
 
         return Column(crossAxisAlignment: CrossAxisAlignment.stretch, mainAxisSize: MainAxisSize.min, children: [
           const Spacer(),

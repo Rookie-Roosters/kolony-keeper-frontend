@@ -24,7 +24,9 @@ class LogInFormBloc extends FormBloc<AuthenticationSession, Failure> {
     final res = await authentication.logIn(AuthenticationLogInParams(email: email.value, password: password.value));
     res.fold(
       (l) => emitFailure(failureResponse: l),
-      (r) => emitSuccess(successResponse: authentication.session),
+      (r) {
+        emitSuccess(successResponse: authentication.session);
+      },
     );
   }
 }

@@ -21,15 +21,16 @@ class AppRouter extends $AppRouter implements AutoRouteGuard {
   final List<AutoRoute> routes = [
     AutoRoute(page: AuthenticationRoute.page, path: '/authentication'),
     AutoRoute(page: DashboardRoute.page, path: '/', children: [
+      AutoRoute(page: HomeRoute.page, path: ''),
       AutoRoute(page: AlertsRoute.page, path: 'alerts'),
       AutoRoute(page: BusinessServicesRoute.page, path: 'business_services', children: [
+        AutoRoute(page: BusinessServicesBusinessGroupsRoute.page, path: ''),
         AutoRoute(page: BusinessServicesInterestGroupsRoute.page, path: 'interest_groups'),
-        AutoRoute(page: BusinessServicesBusinessGroupsRoute.page, path: 'business_groups'),
       ]),
       AutoRoute(page: IncidentsRoute.page, path: 'incidents'),
       AutoRoute(page: NotificationsRoute.page, path: 'notifications'),
       AutoRoute(page: UserRoute.page, path: 'user', children: [
-        AutoRoute(page: UserProfileRoute.page, path: 'profile'),
+        AutoRoute(page: UserProfileRoute.page, path: ''),
         AutoRoute(page: UserDevicesRoute.page, path: 'devices'),
       ]),
     ]),
