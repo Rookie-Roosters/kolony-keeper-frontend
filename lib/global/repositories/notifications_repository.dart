@@ -1,23 +1,24 @@
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
-import 'package:kolony_keeper/core/utils/failures.dart';
-import 'package:kolony_keeper/core/utils/response.dart';
-import 'package:kolony_keeper/global/entities/entities.dart';
-import 'package:kolony_keeper/global/models/models.dart';
+import '../../core/config/config.dart';
+import '../../core/utils/utils.dart';
+import '../entities/entities.dart';
+import '../models/models.dart';
 abstract class INotificationsRepository{
   AsyncResponse<Notification> notificationCreate(NotificationCreateParams params); 
+  AsyncResponse<List<Notification>> notificationGetAll();
   AsyncResponse<Notification> notificationGetById(NotificationGetByIdParams params); 
-  AsyncResponse<Notification> notificationUpdate(NotificationUpdateParams params);
+  AsyncResponse<Notification> notificationUpdate(NotificationUpdateParams params, String id);
   AsyncResponse<bool> notificationDelete(NotificationDeleteParams params);
 }
 
 
 class NotificationsRepository implements INotificationsRepository{
+  final _client = HttpClient('${Environment.kolonyKeeperApi}/notifications');
+
   @override
   AsyncResponse<Notification> notificationCreate(NotificationCreateParams params) async{
     try {
-      final dio = Dio();
-      final res = await dio.post<Notification>('jujuju/jajajja/Notifications', data: params.toJson());
+      final res = await _client.post('', data: params.toJson());
       return Right(res.data!);
     } catch (e) {
       return Left(Failure.error(e.toString()));
@@ -25,10 +26,9 @@ class NotificationsRepository implements INotificationsRepository{
   } 
 
   @override
-  AsyncResponse<Notification> notificationGetById(NotificationGetByIdParams params) async{
+  AsyncResponse<List<Notification>> notificationGetAll() async{
     try {
-      final dio = Dio();
-      final res = await dio.get<Notification>('jujuju/jajajja/Notifications');
+      final res = await _client.get('');
       return Right(res.data!);
     } catch (e) {
       return Left(Failure.error(e.toString()));
@@ -36,10 +36,19 @@ class NotificationsRepository implements INotificationsRepository{
   }
 
   @override
-  AsyncResponse<Notification> notificationUpdate(NotificationUpdateParams params) async {
+  AsyncResponse<Notification> notificationGetById(NotificationGetByIdParams params) async{
     try {
-      final dio = Dio();
-      final res = await dio.patch<Notification>('jujuju/jajajja/Notifications', data: params.toJson());
+      final res = await _client.get('/${params.id}');
+      return Right(res.data!);
+    } catch (e) {
+      return Left(Failure.error(e.toString()));
+    }
+  }
+
+  @override
+  AsyncResponse<Notification> notificationUpdate(NotificationUpdateParams params, String id) async {
+    try {
+      final res = await _client.post('/$id', data: params.toJson());
       return Right(res.data!);
     } catch (e) {
       return Left(Failure.error(e.toString()));
@@ -49,8 +58,7 @@ class NotificationsRepository implements INotificationsRepository{
   @override
   AsyncResponse<bool> notificationDelete(NotificationDeleteParams params) async {
     try {
-      final dio = Dio();
-      final res = await dio.delete<bool>('jujuju/jajajja/Notifications', data: params.toJson());
+      final res = await _client.delete('/${params.id}');
       return Right(res.data!);
     } catch (e) {
       return Left(Failure.error(e.toString()));

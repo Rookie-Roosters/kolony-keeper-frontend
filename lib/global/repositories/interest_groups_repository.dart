@@ -1,24 +1,25 @@
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
-import 'package:kolony_keeper/core/utils/failures.dart';
-import 'package:kolony_keeper/core/utils/response.dart';
-import 'package:kolony_keeper/global/entities/interest_groups.dart';
-import 'package:kolony_keeper/global/models/models.dart';
+import '../../core/config/config.dart';
+import '../../core/utils/utils.dart';
+import '../entities/interest_groups.dart';
+import '../models/models.dart';
 
 abstract class IInterestGroupsRepository{
   AsyncResponse<InterestGroup> interestGroupCreate(InterestGroupCreateParams params); 
+  AsyncResponse<List<InterestGroup>> interestGroupGetAll(); 
   AsyncResponse<InterestGroup> interestGroupGetById(InterestGroupGetByIdParams params); 
-  AsyncResponse<InterestGroup> interestGroupUpdate(InterestGroupUpdateParams params);
+  AsyncResponse<InterestGroup> interestGroupUpdate(InterestGroupUpdateParams params, String id);
   AsyncResponse<bool> interestGroupDelete(InterestGroupDeleteParams params);
 }
 
 class InterestGroupsRepository implements IInterestGroupsRepository{
 
+  final _client = HttpClient('${Environment.kolonyKeeperApi}/interest-groups');
+
   @override
   AsyncResponse<InterestGroup> interestGroupCreate(InterestGroupCreateParams params) async{
     try {
-      final dio = Dio();
-      final res = await dio.post<InterestGroup>('jujuju/jajajja/InterestGroup', data: params.toJson());
+      final res = await _client.post('', data: params.toJson());
       return Right(res.data!);
     } catch (e) {
       return Left(Failure.error(e.toString()));
@@ -26,10 +27,9 @@ class InterestGroupsRepository implements IInterestGroupsRepository{
   } 
 
   @override
-  AsyncResponse<InterestGroup> interestGroupGetById(InterestGroupGetByIdParams params) async{
+  AsyncResponse<List<InterestGroup>> interestGroupGetAll() async{
     try {
-      final dio = Dio();
-      final res = await dio.get<InterestGroup>('jujuju/jajajja/Notifications');
+      final res = await _client.get('');
       return Right(res.data!);
     } catch (e) {
       return Left(Failure.error(e.toString()));
@@ -37,10 +37,19 @@ class InterestGroupsRepository implements IInterestGroupsRepository{
   }
 
   @override
-  AsyncResponse<InterestGroup> interestGroupUpdate(InterestGroupUpdateParams params) async {
+  AsyncResponse<InterestGroup> interestGroupGetById(InterestGroupGetByIdParams params) async{
     try {
-      final dio = Dio();
-      final res = await dio.patch<InterestGroup>('jujuju/jajajja/Notifications', data: params.toJson());
+      final res = await _client.get('/${params.id}');
+      return Right(res.data!);
+    } catch (e) {
+      return Left(Failure.error(e.toString()));
+    }
+  }
+
+  @override
+  AsyncResponse<InterestGroup> interestGroupUpdate(InterestGroupUpdateParams params, String id) async {
+    try {
+      final res = await _client.patch('/$id', data: params.toJson());
       return Right(res.data!);
     } catch (e) {
       return Left(Failure.error(e.toString()));
@@ -50,8 +59,7 @@ class InterestGroupsRepository implements IInterestGroupsRepository{
   @override
   AsyncResponse<bool> interestGroupDelete(InterestGroupDeleteParams params) async {
     try {
-      final dio = Dio();
-      final res = await dio.delete<bool>('jujuju/jajajja/Notifications', data: params.toJson());
+      final res = await _client.delete('/${params.id}');
       return Right(res.data!);
     } catch (e) {
       return Left(Failure.error(e.toString()));
