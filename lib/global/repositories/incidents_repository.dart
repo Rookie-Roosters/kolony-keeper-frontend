@@ -7,7 +7,7 @@ import '../models/models.dart';
 
 abstract class IIncidentsRepository { 
   AsyncResponse<Incidents> incidentCreate(IncidentCreateParams params, String token);
-  AsyncResponse<Incidents> incidentGetAll(String token); 
+  AsyncResponse<List<Incidents>> incidentGetAll(String token); 
   AsyncResponse<Incidents> incidentGetById(IncidentGetByIdParams params, String token); 
   AsyncResponse<Incidents> incidentUpdate(IncidentUpdateParams params, String id, String token); 
   AsyncResponse<bool> incidentDelete(IncidentDeleteParams params, String token); 
@@ -28,7 +28,7 @@ class IncidentsRepository implements IIncidentsRepository{
   } 
 
   @override
-  AsyncResponse<Incidents> incidentGetAll(String token) async{
+  AsyncResponse<List<Incidents>> incidentGetAll(String token) async{
     try {
       final res = await _client.get('');
       return Right(res.data!);
