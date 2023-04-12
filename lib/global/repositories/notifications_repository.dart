@@ -4,11 +4,11 @@ import '../../core/utils/utils.dart';
 import '../entities/entities.dart';
 import '../models/models.dart';
 abstract class INotificationsRepository{
-  AsyncResponse<Notification> notificationCreate(NotificationCreateParams params); 
-  AsyncResponse<List<Notification>> notificationGetAll();
-  AsyncResponse<Notification> notificationGetById(NotificationGetByIdParams params); 
-  AsyncResponse<Notification> notificationUpdate(NotificationUpdateParams params, String id);
-  AsyncResponse<bool> notificationDelete(NotificationDeleteParams params);
+  AsyncResponse<Notification> notificationCreate(NotificationCreateParams params, String token); 
+  AsyncResponse<List<Notification>> notificationGetAll(String token);
+  AsyncResponse<Notification> notificationGetById(NotificationGetByIdParams params, String token); 
+  AsyncResponse<Notification> notificationUpdate(NotificationUpdateParams params, String id, String token);
+  AsyncResponse<bool> notificationDelete(NotificationDeleteParams params, String token);
 }
 
 
@@ -16,8 +16,9 @@ class NotificationsRepository implements INotificationsRepository{
   final _client = HttpClient('${Environment.kolonyKeeperApi}/notifications');
 
   @override
-  AsyncResponse<Notification> notificationCreate(NotificationCreateParams params) async{
+  AsyncResponse<Notification> notificationCreate(NotificationCreateParams params, String token) async{
     try {
+      _client.options.headers["Authorization"] = 'Bearer $token';
       final res = await _client.post('', data: params.toJson());
       return Right(res.data!);
     } catch (e) {
@@ -26,8 +27,9 @@ class NotificationsRepository implements INotificationsRepository{
   } 
 
   @override
-  AsyncResponse<List<Notification>> notificationGetAll() async{
+  AsyncResponse<List<Notification>> notificationGetAll(String token) async{
     try {
+      _client.options.headers["Authorization"] = 'Bearer $token';
       final res = await _client.get('');
       return Right(res.data!);
     } catch (e) {
@@ -36,8 +38,9 @@ class NotificationsRepository implements INotificationsRepository{
   }
 
   @override
-  AsyncResponse<Notification> notificationGetById(NotificationGetByIdParams params) async{
+  AsyncResponse<Notification> notificationGetById(NotificationGetByIdParams params, String token) async{
     try {
+      _client.options.headers["Authorization"] = 'Bearer $token';
       final res = await _client.get('/${params.id}');
       return Right(res.data!);
     } catch (e) {
@@ -46,8 +49,9 @@ class NotificationsRepository implements INotificationsRepository{
   }
 
   @override
-  AsyncResponse<Notification> notificationUpdate(NotificationUpdateParams params, String id) async {
+  AsyncResponse<Notification> notificationUpdate(NotificationUpdateParams params, String id, String token) async {
     try {
+      _client.options.headers["Authorization"] = 'Bearer $token';
       final res = await _client.post('/$id', data: params.toJson());
       return Right(res.data!);
     } catch (e) {
@@ -56,8 +60,9 @@ class NotificationsRepository implements INotificationsRepository{
   }
 
   @override
-  AsyncResponse<bool> notificationDelete(NotificationDeleteParams params) async {
+  AsyncResponse<bool> notificationDelete(NotificationDeleteParams params, String token) async {
     try {
+      _client.options.headers["Authorization"] = 'Bearer $token';
       final res = await _client.delete('/${params.id}');
       return Right(res.data!);
     } catch (e) {

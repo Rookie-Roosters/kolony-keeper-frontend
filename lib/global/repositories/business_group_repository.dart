@@ -4,11 +4,11 @@ import '../../core/utils/utils.dart';
 import '../entities/entities.dart';
 import '../models/models.dart';
 abstract class IBusinessGroupsRepository {
-  AsyncResponse<BusinessGroup> businessGroupCreate(BusinessGroupCreateParams params);
-  AsyncResponse<List<BusinessGroup>> businessGroupGetAll();
-  AsyncResponse<bool> businessGroupDelete(BusinessGroupDeleteParams params); 
-  AsyncResponse<BusinessGroup> businessGroupGetById(BusinessGroupGetByIdParams params); 
-  AsyncResponse<BusinessGroup> businessGroupUpdate(BusinessGroupUpdateParams params, String id);
+  AsyncResponse<BusinessGroup> businessGroupCreate(BusinessGroupCreateParams params, String token);
+  AsyncResponse<List<BusinessGroup>> businessGroupGetAll(String token);
+  AsyncResponse<bool> businessGroupDelete(BusinessGroupDeleteParams params, String token); 
+  AsyncResponse<BusinessGroup> businessGroupGetById(BusinessGroupGetByIdParams params, String token); 
+  AsyncResponse<BusinessGroup> businessGroupUpdate(BusinessGroupUpdateParams params, String id, String token);
 }
 
 class BusinessGroupsRepository implements IBusinessGroupsRepository{
@@ -16,7 +16,7 @@ class BusinessGroupsRepository implements IBusinessGroupsRepository{
   
   
   @override
-  AsyncResponse<BusinessGroup> businessGroupCreate(BusinessGroupCreateParams params) async{
+  AsyncResponse<BusinessGroup> businessGroupCreate(BusinessGroupCreateParams params, String token) async{
     try {
       final res = await _client.post('', data: params.toJson());
       return Right(res.data!);
@@ -25,7 +25,7 @@ class BusinessGroupsRepository implements IBusinessGroupsRepository{
     }
   } 
   @override
-  AsyncResponse<List<BusinessGroup>> businessGroupGetAll() async{
+  AsyncResponse<List<BusinessGroup>> businessGroupGetAll(String token) async{
     try {
       final res = await _client.get('');
       return Right(res.data!);
@@ -35,7 +35,7 @@ class BusinessGroupsRepository implements IBusinessGroupsRepository{
   }
 
   @override
-  AsyncResponse<BusinessGroup> businessGroupGetById(BusinessGroupGetByIdParams params) async{
+  AsyncResponse<BusinessGroup> businessGroupGetById(BusinessGroupGetByIdParams params, String token) async{
     try {
       final res = await _client.get('/${params.id}');
       return Right(res.data!);
@@ -45,7 +45,7 @@ class BusinessGroupsRepository implements IBusinessGroupsRepository{
   }
 
   @override
-  AsyncResponse<BusinessGroup> businessGroupUpdate(BusinessGroupUpdateParams params, String id) async {
+  AsyncResponse<BusinessGroup> businessGroupUpdate(BusinessGroupUpdateParams params, String id, String token ) async {
     try {
       final res = await _client.patch('/$id', data: params.toJson());
       return Right(res.data!);
@@ -55,7 +55,7 @@ class BusinessGroupsRepository implements IBusinessGroupsRepository{
   }
 
   @override
-  AsyncResponse<bool> businessGroupDelete(BusinessGroupDeleteParams params) async {
+  AsyncResponse<bool> businessGroupDelete(BusinessGroupDeleteParams params, String token) async {
     try {
       final res = await _client.delete('/${params.id}');
       return Right(res.data!);

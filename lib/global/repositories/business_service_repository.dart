@@ -4,11 +4,11 @@ import '../../core/config/config.dart';
 import '../entities/entities.dart';
 import '../models/models.dart';
 abstract class IBusinessServicesRepository{
-  AsyncResponse<BusinessService> businessServiceCreate(BusinessServiceCreateParams params);
-  AsyncResponse<BusinessService> businessServiceGetAll(); 
-  AsyncResponse<bool> businessServiceDelete(BusinessServiceDeleteParams params); 
-  AsyncResponse<BusinessService> businessServiceGetById(BusinessServiceGetByIdParams params); 
-  AsyncResponse<BusinessService> businessServiceUpdate(BusinessServiceUpdateParamas params, String id);
+  AsyncResponse<BusinessService> businessServiceCreate(BusinessServiceCreateParams params, String token);
+  AsyncResponse<BusinessService> businessServiceGetAll(String token); 
+  AsyncResponse<bool> businessServiceDelete(BusinessServiceDeleteParams params, String token); 
+  AsyncResponse<BusinessService> businessServiceGetById(BusinessServiceGetByIdParams params, String token); 
+  AsyncResponse<BusinessService> businessServiceUpdate(BusinessServiceUpdateParamas params, String id, String token);
 }
 
 class BusinessServicesRepository implements IBusinessServicesRepository{
@@ -16,7 +16,7 @@ class BusinessServicesRepository implements IBusinessServicesRepository{
 
   
   @override
-  AsyncResponse<BusinessService> businessServiceCreate(BusinessServiceCreateParams params) async{
+  AsyncResponse<BusinessService> businessServiceCreate(BusinessServiceCreateParams params, String token) async{
     try {
       final res = await _client.post('', data: params.toJson());
       return Right(res.data!);
@@ -26,7 +26,7 @@ class BusinessServicesRepository implements IBusinessServicesRepository{
   } 
 
   @override
-  AsyncResponse<BusinessService> businessServiceGetAll() async{
+  AsyncResponse<BusinessService> businessServiceGetAll(String token) async{
     try {
       final res = await _client.get('');
       return Right(res.data!);
@@ -36,7 +36,7 @@ class BusinessServicesRepository implements IBusinessServicesRepository{
   }
 
   @override
-  AsyncResponse<BusinessService> businessServiceGetById(BusinessServiceGetByIdParams params) async{
+  AsyncResponse<BusinessService> businessServiceGetById(BusinessServiceGetByIdParams params, String token) async{
     try {
       final res = await _client.get('/${params.id}');
       return Right(res.data!);
@@ -46,7 +46,7 @@ class BusinessServicesRepository implements IBusinessServicesRepository{
   }
 
   @override
-  AsyncResponse<BusinessService> businessServiceUpdate(BusinessServiceUpdateParamas params, String id) async {
+  AsyncResponse<BusinessService> businessServiceUpdate(BusinessServiceUpdateParamas params, String id, String token) async {
     try {
       final res = await _client.patch('/$id', data: params.toJson());
       return Right(res.data!);
@@ -56,7 +56,7 @@ class BusinessServicesRepository implements IBusinessServicesRepository{
   }
 
   @override
-  AsyncResponse<bool> businessServiceDelete(BusinessServiceDeleteParams params) async {
+  AsyncResponse<bool> businessServiceDelete(BusinessServiceDeleteParams params, String token) async {
     try {
       final res = await _client.delete<bool>('/${params.id}');
       return Right(res.data!);

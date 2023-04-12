@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_router.gr.dart';
 import '../../global/components/components.dart';
+import '../dashboard/views/devices/device_create_view.dart';
 import 'views/login_view.dart';
 
 @RoutePage()

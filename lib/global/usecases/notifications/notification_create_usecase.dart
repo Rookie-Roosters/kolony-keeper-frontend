@@ -9,26 +9,18 @@ abstract class INotificationCreateUseCase {
 
 class NotificationCreatetUseCase implements INotificationCreateUseCase {
   final INotificationsRepository _notificationsRepository;
-  //final IAuthRepository _authRepository; 
+  final IAuthenticationRepository _authenticationRepository; 
 
-  NotificationCreatetUseCase(this._notificationsRepository);//, this._authRepository);
+  NotificationCreatetUseCase(this._notificationsRepository, this._authenticationRepository);//, this._authRepository);
 
   @override
   AsyncResponse<Notification> call(NotificationCreateParams params) async {
-    //final session = await _authRepository.getSession(); 
-    late String token;
-    // session.fold(
-    //   (l) {
-    //     throw const Failure.unauthorized('Not authorized');
-    //   },
-    //   (r) {
-    //     try{
-    //       token = r!.token;
-    //     } catch(e){
-    //       throw Failure.unauthorized(r.toString()); 
-    //     }
-    //   }
-    // );
-    return _notificationsRepository.notificationCreate(params);
+    final session = _authenticationRepository.session;
+    String token = session!.token;
+    if(token != ''){
+      return _notificationsRepository.notificationCreate(params, token);
+    }else{
+      throw const Failure.unauthorized('Not authorized');
+    }
   }
 }

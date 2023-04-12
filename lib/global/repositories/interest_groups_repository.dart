@@ -5,11 +5,11 @@ import '../entities/interest_groups.dart';
 import '../models/models.dart';
 
 abstract class IInterestGroupsRepository{
-  AsyncResponse<InterestGroup> interestGroupCreate(InterestGroupCreateParams params); 
-  AsyncResponse<List<InterestGroup>> interestGroupGetAll(); 
-  AsyncResponse<InterestGroup> interestGroupGetById(InterestGroupGetByIdParams params); 
-  AsyncResponse<InterestGroup> interestGroupUpdate(InterestGroupUpdateParams params, String id);
-  AsyncResponse<bool> interestGroupDelete(InterestGroupDeleteParams params);
+  AsyncResponse<InterestGroup> interestGroupCreate(InterestGroupCreateParams params, String token); 
+  AsyncResponse<List<InterestGroup>> interestGroupGetAll(String token); 
+  AsyncResponse<InterestGroup> interestGroupGetById(InterestGroupGetByIdParams params, String token); 
+  AsyncResponse<InterestGroup> interestGroupUpdate(InterestGroupUpdateParams params, String id, String token);
+  AsyncResponse<bool> interestGroupDelete(InterestGroupDeleteParams params, String token);
 }
 
 class InterestGroupsRepository implements IInterestGroupsRepository{
@@ -17,7 +17,7 @@ class InterestGroupsRepository implements IInterestGroupsRepository{
   final _client = HttpClient('${Environment.kolonyKeeperApi}/interest-groups');
 
   @override
-  AsyncResponse<InterestGroup> interestGroupCreate(InterestGroupCreateParams params) async{
+  AsyncResponse<InterestGroup> interestGroupCreate(InterestGroupCreateParams params, String token) async{
     try {
       final res = await _client.post('', data: params.toJson());
       return Right(res.data!);
@@ -27,7 +27,7 @@ class InterestGroupsRepository implements IInterestGroupsRepository{
   } 
 
   @override
-  AsyncResponse<List<InterestGroup>> interestGroupGetAll() async{
+  AsyncResponse<List<InterestGroup>> interestGroupGetAll(String token) async{
     try {
       final res = await _client.get('');
       return Right(res.data!);
@@ -37,7 +37,7 @@ class InterestGroupsRepository implements IInterestGroupsRepository{
   }
 
   @override
-  AsyncResponse<InterestGroup> interestGroupGetById(InterestGroupGetByIdParams params) async{
+  AsyncResponse<InterestGroup> interestGroupGetById(InterestGroupGetByIdParams params, String token) async{
     try {
       final res = await _client.get('/${params.id}');
       return Right(res.data!);
@@ -47,7 +47,7 @@ class InterestGroupsRepository implements IInterestGroupsRepository{
   }
 
   @override
-  AsyncResponse<InterestGroup> interestGroupUpdate(InterestGroupUpdateParams params, String id) async {
+  AsyncResponse<InterestGroup> interestGroupUpdate(InterestGroupUpdateParams params, String id, String token) async {
     try {
       final res = await _client.patch('/$id', data: params.toJson());
       return Right(res.data!);
@@ -57,7 +57,7 @@ class InterestGroupsRepository implements IInterestGroupsRepository{
   }
 
   @override
-  AsyncResponse<bool> interestGroupDelete(InterestGroupDeleteParams params) async {
+  AsyncResponse<bool> interestGroupDelete(InterestGroupDeleteParams params, String token) async {
     try {
       final res = await _client.delete('/${params.id}');
       return Right(res.data!);

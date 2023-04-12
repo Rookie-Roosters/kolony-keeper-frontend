@@ -6,11 +6,11 @@ import '../entities/incidents.dart';
 import '../models/models.dart';
 
 abstract class IIncidentsRepository { 
-  AsyncResponse<Incidents> incidentCreate(IncidentCreateParams params);
-  AsyncResponse<Incidents> incidentGetAll(); 
-  AsyncResponse<Incidents> incidentGetById(IncidentGetByIdParams params); 
-  AsyncResponse<Incidents> incidentUpdate(IncidentUpdateParams params, String id); 
-  AsyncResponse<bool> incidentDelete(IncidentDeleteParams params); 
+  AsyncResponse<Incidents> incidentCreate(IncidentCreateParams params, String token);
+  AsyncResponse<Incidents> incidentGetAll(String token); 
+  AsyncResponse<Incidents> incidentGetById(IncidentGetByIdParams params, String token); 
+  AsyncResponse<Incidents> incidentUpdate(IncidentUpdateParams params, String id, String token); 
+  AsyncResponse<bool> incidentDelete(IncidentDeleteParams params, String token); 
 }
 
 class IncidentsRepository implements IIncidentsRepository{
@@ -18,7 +18,7 @@ class IncidentsRepository implements IIncidentsRepository{
   final _client = HttpClient('${Environment.kolonyKeeperApi}/incidents');
 
   @override
-  AsyncResponse<Incidents> incidentCreate(IncidentCreateParams params) async{
+  AsyncResponse<Incidents> incidentCreate(IncidentCreateParams params, String token) async{
     try {
       final res = await _client.post('', data: params.toJson());
       return Right(res.data!);
@@ -28,7 +28,7 @@ class IncidentsRepository implements IIncidentsRepository{
   } 
 
   @override
-  AsyncResponse<Incidents> incidentGetAll() async{
+  AsyncResponse<Incidents> incidentGetAll(String token) async{
     try {
       final res = await _client.get('');
       return Right(res.data!);
@@ -38,7 +38,7 @@ class IncidentsRepository implements IIncidentsRepository{
   }
 
   @override
-  AsyncResponse<Incidents> incidentGetById(IncidentGetByIdParams params) async{
+  AsyncResponse<Incidents> incidentGetById(IncidentGetByIdParams params, String token ) async{
     try {
       final res = await _client.get('/${params.id}');
       return Right(res.data!);
@@ -48,7 +48,7 @@ class IncidentsRepository implements IIncidentsRepository{
   }
 
   @override
-  AsyncResponse<Incidents> incidentUpdate(IncidentUpdateParams params, String id) async {
+  AsyncResponse<Incidents> incidentUpdate(IncidentUpdateParams params, String id, String token) async {
     try {
       final res = await _client.patch('/$id', data: params.toJson());
       return Right(res.data!);
@@ -58,7 +58,7 @@ class IncidentsRepository implements IIncidentsRepository{
   }
 
   @override
-  AsyncResponse<bool> incidentDelete(IncidentDeleteParams params) async {
+  AsyncResponse<bool> incidentDelete(IncidentDeleteParams params, String token) async {
     try {
       final res = await _client.delete('/${params.id}');
       return Right(res.data!);
