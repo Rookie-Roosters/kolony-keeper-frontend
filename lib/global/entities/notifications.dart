@@ -7,11 +7,10 @@ part 'notifications.g.dart';
 
 @freezed
 class Notification with _$Notification {
-
   factory Notification({
     // required User user,
     required Devices device, 
-    required BusinessService service, 
+    BusinessService? service, 
     
   }) = _Notification;
 
