@@ -4,3 +4,4 @@ export 'devices_repository.dart';
 export 'incidents_repository.dart';
 export 'interest_groups_repository.dart';
 export 'notifications_repository.dart';
+export 'authentication_repository.dart';
