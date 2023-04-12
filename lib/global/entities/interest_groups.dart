@@ -11,7 +11,7 @@ class InterestGroup with _$InterestGroup {
     //required User user,  
     required String name,
     String? icon, 
-    required List<BusinessService> businessServices, 
+    List<BusinessService>? businessServices, 
 
   }) = _InterestGroup;
 

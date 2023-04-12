@@ -6,12 +6,12 @@ part 'business_service.g.dart';
 
 @freezed
 class BusinessService with _$BusinessService {
-
-  factory BusinessService({
+  const BusinessService._();
+  const factory BusinessService({
     required String id, 
     required String name, 
     required BusinessStatus status, 
-    required BusinessGroup group, 
+    BusinessGroup? group, 
   }) = _BusinessService;
 
   factory BusinessService.fromJson(Map<String, dynamic> json) => _$BusinessServiceFromJson(json);
