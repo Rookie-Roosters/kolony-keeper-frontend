@@ -1,34 +1,33 @@
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
-import 'package:kolony_keeper/core/utils/failures.dart';
-import 'package:kolony_keeper/core/utils/response.dart';
-import 'package:kolony_keeper/global/entities/business_group.dart';
-import 'package:kolony_keeper/global/models/models.dart';
+import '../../core/config/config.dart';
+import '../../core/utils/utils.dart';
+import '../entities/entities.dart';
+import '../models/models.dart';
 abstract class IBusinessGroupsRepository {
-  AsyncResponse<BusinessGroup> businessGroupCreate(BusinessGroupCreateParams params);
-  AsyncResponse<bool> businessGroupDelete(BusinessGroupDeleteParams params); 
-  AsyncResponse<BusinessGroup> businessGroupGetById(BusinessGroupGetByIdParams params); 
-  AsyncResponse<BusinessGroup> businessGroupUpdate(BusinessGroupUpdateParams params);
+  AsyncResponse<BusinessGroup> businessGroupCreate(BusinessGroupCreateParams params, String token);
+  AsyncResponse<List<BusinessGroup>> businessGroupGetAll(String token);
+  AsyncResponse<bool> businessGroupDelete(BusinessGroupDeleteParams params, String token); 
+  AsyncResponse<BusinessGroup> businessGroupGetById(BusinessGroupGetByIdParams params, String token); 
+  AsyncResponse<BusinessGroup> businessGroupUpdate(BusinessGroupUpdateParams params, String id, String token);
 }
 
 class BusinessGroupsRepository implements IBusinessGroupsRepository{
+  final _client = HttpClient('${Environment.kolonyKeeperApi}/business-groups');
+  
   
   @override
-  AsyncResponse<BusinessGroup> businessGroupCreate(BusinessGroupCreateParams params) async{
+  AsyncResponse<BusinessGroup> businessGroupCreate(BusinessGroupCreateParams params, String token) async{
     try {
-      final dio = Dio();
-      final res = await dio.post<BusinessGroup>('jujuju/jajajja/InterestGroup', data: params.toJson());
+      final res = await _client.post('', data: params.toJson());
       return Right(res.data!);
     } catch (e) {
       return Left(Failure.error(e.toString()));
     }
   } 
-
   @override
-  AsyncResponse<BusinessGroup> businessGroupGetById(BusinessGroupGetByIdParams params) async{
+  AsyncResponse<List<BusinessGroup>> businessGroupGetAll(String token) async{
     try {
-      final dio = Dio();
-      final res = await dio.get<BusinessGroup>('jujuju/jajajja/Notifications');
+      final res = await _client.get('');
       return Right(res.data!);
     } catch (e) {
       return Left(Failure.error(e.toString()));
@@ -36,10 +35,9 @@ class BusinessGroupsRepository implements IBusinessGroupsRepository{
   }
 
   @override
-  AsyncResponse<BusinessGroup> businessGroupUpdate(BusinessGroupUpdateParams params) async {
+  AsyncResponse<BusinessGroup> businessGroupGetById(BusinessGroupGetByIdParams params, String token) async{
     try {
-      final dio = Dio();
-      final res = await dio.patch<BusinessGroup>('jujuju/jajajja/Notifications', data: params.toJson());
+      final res = await _client.get('/${params.id}');
       return Right(res.data!);
     } catch (e) {
       return Left(Failure.error(e.toString()));
@@ -47,10 +45,19 @@ class BusinessGroupsRepository implements IBusinessGroupsRepository{
   }
 
   @override
-  AsyncResponse<bool> businessGroupDelete(BusinessGroupDeleteParams params) async {
+  AsyncResponse<BusinessGroup> businessGroupUpdate(BusinessGroupUpdateParams params, String id, String token ) async {
     try {
-      final dio = Dio();
-      final res = await dio.delete<bool>('jujuju/jajajja/Notifications', data: params.toJson());
+      final res = await _client.patch('/$id', data: params.toJson());
+      return Right(res.data!);
+    } catch (e) {
+      return Left(Failure.error(e.toString()));
+    }
+  }
+
+  @override
+  AsyncResponse<bool> businessGroupDelete(BusinessGroupDeleteParams params, String token) async {
+    try {
+      final res = await _client.delete('/${params.id}');
       return Right(res.data!);
     } catch (e) {
       return Left(Failure.error(e.toString()));

@@ -1,23 +1,24 @@
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
-import 'package:kolony_keeper/core/utils/failures.dart';
-import 'package:kolony_keeper/core/utils/response.dart';
-import 'package:kolony_keeper/global/entities/entities.dart';
-import 'package:kolony_keeper/global/models/models.dart';
+import '../../core/utils/utils.dart';
+import '../../core/config/config.dart';
+import '../entities/entities.dart';
+import '../models/models.dart';
 abstract class IBusinessServicesRepository{
-  AsyncResponse<BusinessService> businessServiceCreate(BusinessServiceCreateParams params);
-  AsyncResponse<bool> businessServiceDelete(BusinessServiceDeleteParams params); 
-  AsyncResponse<BusinessService> businessServiceGetById(BusinessServiceGetByIdParams params); 
-  AsyncResponse<BusinessService> businessServiceUpdate(BusinessServiceUpdateParamas params);
+  AsyncResponse<BusinessService> businessServiceCreate(BusinessServiceCreateParams params, String token);
+  AsyncResponse<List<BusinessService>> businessServiceGetAll(String token); 
+  AsyncResponse<bool> businessServiceDelete(BusinessServiceDeleteParams params, String token); 
+  AsyncResponse<BusinessService> businessServiceGetById(BusinessServiceGetByIdParams params, String token); 
+  AsyncResponse<BusinessService> businessServiceUpdate(BusinessServiceUpdateParamas params, String id, String token);
 }
 
 class BusinessServicesRepository implements IBusinessServicesRepository{
+  final _client = HttpClient('${Environment.kolonyKeeperApi}/business-services');
+
   
   @override
-  AsyncResponse<BusinessService> businessServiceCreate(BusinessServiceCreateParams params) async{
+  AsyncResponse<BusinessService> businessServiceCreate(BusinessServiceCreateParams params, String token) async{
     try {
-      final dio = Dio();
-      final res = await dio.post<BusinessService>('jujuju/jajajja/InterestGroup', data: params.toJson());
+      final res = await _client.post('', data: params.toJson());
       return Right(res.data!);
     } catch (e) {
       return Left(Failure.error(e.toString()));
@@ -25,10 +26,9 @@ class BusinessServicesRepository implements IBusinessServicesRepository{
   } 
 
   @override
-  AsyncResponse<BusinessService> businessServiceGetById(BusinessServiceGetByIdParams params) async{
+  AsyncResponse<List<BusinessService>> businessServiceGetAll(String token) async{
     try {
-      final dio = Dio();
-      final res = await dio.get<BusinessService>('jujuju/jajajja/Notifications');
+      final res = await _client.get('');
       return Right(res.data!);
     } catch (e) {
       return Left(Failure.error(e.toString()));
@@ -36,10 +36,9 @@ class BusinessServicesRepository implements IBusinessServicesRepository{
   }
 
   @override
-  AsyncResponse<BusinessService> businessServiceUpdate(BusinessServiceUpdateParamas params) async {
+  AsyncResponse<BusinessService> businessServiceGetById(BusinessServiceGetByIdParams params, String token) async{
     try {
-      final dio = Dio();
-      final res = await dio.patch<BusinessService>('jujuju/jajajja/Notifications', data: params.toJson());
+      final res = await _client.get('/${params.id}');
       return Right(res.data!);
     } catch (e) {
       return Left(Failure.error(e.toString()));
@@ -47,10 +46,19 @@ class BusinessServicesRepository implements IBusinessServicesRepository{
   }
 
   @override
-  AsyncResponse<bool> businessServiceDelete(BusinessServiceDeleteParams params) async {
+  AsyncResponse<BusinessService> businessServiceUpdate(BusinessServiceUpdateParamas params, String id, String token) async {
     try {
-      final dio = Dio();
-      final res = await dio.delete<bool>('jujuju/jajajja/Notifications', data: params.toJson());
+      final res = await _client.patch('/$id', data: params.toJson());
+      return Right(res.data!);
+    } catch (e) {
+      return Left(Failure.error(e.toString()));
+    }
+  }
+
+  @override
+  AsyncResponse<bool> businessServiceDelete(BusinessServiceDeleteParams params, String token) async {
+    try {
+      final res = await _client.delete<bool>('/${params.id}');
       return Right(res.data!);
     } catch (e) {
       return Left(Failure.error(e.toString()));

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kolony_keeper/global/entities/business_service.dart';
-import 'package:kolony_keeper/global/entities/devices.dart';
+import '../../entities/business_service.dart';
+import '../../entities/devices.dart';
 
 part 'notification_create_paramas.freezed.dart';
 part 'notification_create_paramas.g.dart';

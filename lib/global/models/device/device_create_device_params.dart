@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kolony_keeper/global/entities/entities.dart';
+import '../../entities/entities.dart';
 
 part 'device_create_device_params.freezed.dart';
 part 'device_create_device_params.g.dart';
@@ -8,10 +8,10 @@ part 'device_create_device_params.g.dart';
 class DeviceCreateParams with _$DeviceCreateParams {
 
   factory DeviceCreateParams({
-    // required User user, 
+    required String user, 
     required String name, 
     required String token, 
-    required Platform platform, 
+    Platform? platform, 
   }) = _DeviceCreateParams;
 
   factory DeviceCreateParams.fromJson(Map<String, dynamic> json) => _$DeviceCreateParamsFromJson(json);
