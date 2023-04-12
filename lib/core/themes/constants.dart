@@ -30,3 +30,7 @@ const kCaptionStyle = TextStyle(fontFamily: kBrandFont, fontSize: 12.0, height: 
 const kBorderRadius = 4.0;
 const kRoundedBorder = BorderRadius.all(Radius.circular(kBorderRadius));
 const kSpacing = 12.0;
+
+const kMobileBreakpoint = 576.0;
+const kTabletBreakpoint = 992.0;
+const kDesktopBreakpoint = 1200.0;

@@ -67,3 +67,9 @@ extension GeneralHelpers on Widget {
     );
   }
 }
+
+extension ResponsiveBreakpoints on num {
+  bool get isMobile => this <= kMobileBreakpoint;
+  bool get isTablet => this > kMobileBreakpoint && this <= kTabletBreakpoint;
+  bool get isDesktop => this > kTabletBreakpoint;
+}
