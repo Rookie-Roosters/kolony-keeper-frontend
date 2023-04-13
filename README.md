@@ -2,6 +2,10 @@
 
 Kolony Keeper Frontend is a cross-platform service status tracker application designed for businesses. Built with Flutter, it can be deployed on Android, iOS, Windows, macOS, and Linux platforms. This frontend app allows users to track the status of various services, receive notifications, and perform administrative tasks.
 
+# Backend Repo
+
+    https://github.com/Rookie-Roosters/kolony-keeper-backend
+
 ## Installation
 
     # Clone the repository:
