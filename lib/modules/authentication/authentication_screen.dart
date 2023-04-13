@@ -2,13 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../core/app_router.gr.dart';
-import '../../global/components/components.dart';
-import '../dashboard/views/devices/device_create_view.dart';
-import 'views/login_view.dart';
 import '../../core/themes/themes.dart';
+import '../../gen/assets.gen.dart';
 import 'components/components.dart';
-
 
 @RoutePage()
 class AuthenticationScreen extends StatelessWidget {
@@ -23,7 +19,8 @@ class AuthenticationScreen extends StatelessWidget {
           if (screen.isDesktop)
             Container(
               color: kPrimaryColor,
-              child: const Text('AstraZeneca'),
+              alignment: Alignment.center,
+              child: Assets.app.astraZeneca.isologotypeNegative.image(height: 80),
             ).expanded(),
           Center(
             child: ConstrainedBox(

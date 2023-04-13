@@ -46,6 +46,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/app/astra-zeneca/
     - assets/app/kolony-keeper/
     - assets/app/rookie-roosters/
     - assets/images/

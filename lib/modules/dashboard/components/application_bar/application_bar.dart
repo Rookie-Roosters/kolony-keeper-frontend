@@ -61,6 +61,59 @@ class ApplicationBar extends StatelessWidget {
   }
 }
 
+class ApplicationBarMobile extends StatelessWidget {
+  final int activeIndex;
+  const ApplicationBarMobile({required this.activeIndex, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 70,
+      padding: EdgeInsets.symmetric(horizontal: kSpacing5),
+      decoration: const BoxDecoration(
+        color: kNeutralColor,
+        border: Border(top: BorderSide(color: kDividerColor)),
+      ),
+      child: Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisSize: MainAxisSize.max, mainAxisAlignment: MainAxisAlignment.center, children: [
+        _NavigationBarButton(
+          text: 'Home',
+          icon: LineAwesome.home_solid,
+          route: const HomeRoute(),
+          isActive: activeIndex == 0,
+        ),
+        SpacerBox.horizontal,
+        _NavigationBarButton(
+          text: 'Business Services',
+          icon: LineAwesome.server_solid,
+          route: const BusinessServicesRoute(),
+          isActive: activeIndex == 1,
+        ),
+        SpacerBox.horizontal,
+        _NavigationBarButton(
+          text: 'Incidents',
+          icon: LineAwesome.exclamation_triangle_solid,
+          route: const IncidentsRoute(),
+          isActive: activeIndex == 2,
+        ),
+        SpacerBox.horizontal,
+        _NavigationBarButton(
+          text: 'Alerts',
+          icon: LineAwesome.binoculars_solid,
+          route: const AlertsRoute(),
+          isActive: activeIndex == 3,
+        ),
+        SpacerBox.horizontal,
+        _NavigationBarButton(
+          text: 'Notifications',
+          icon: LineAwesome.bell,
+          route: const NotificationsRoute(),
+          isActive: activeIndex == 4,
+        ),
+      ]),
+    );
+  }
+}
+
 class _NavigationBarButton extends StatelessWidget {
   final String text;
   final IconData icon;

@@ -26,7 +26,7 @@ class LogInForm extends StatelessWidget {
         return Column(crossAxisAlignment: CrossAxisAlignment.stretch, mainAxisSize: MainAxisSize.min, children: [
           const Spacer(),
           Assets.app.kolonyKeeper.isologotype.image(
-            height: 32.sp,
+            height: 80,
           ),
           SpacerBox.vertical5,
           TextFieldBlocBuilder(
@@ -62,7 +62,7 @@ class LogInForm extends StatelessWidget {
           ),
           SpacerBox.vertical,
           CustomButton.elevated(
-            state is FormBlocLoading && bloc.logInMethod == LogInMethod.microsoft ? const CircularProgressIndicator() : const Text('Microsoft Access'),
+            state is FormBlocLoading && bloc.logInMethod == LogInMethod.microsoft ? const CircularProgressIndicator() : const Text('Microsoft LogIn'),
             prefix: const Icon(LineAwesome.windows),
             color: Colors.blue,
             isBlock: true,
@@ -73,6 +73,9 @@ class LogInForm extends StatelessWidget {
                     bloc.submit();
                   },
           ),
+          SpacerBox.vertical,
+          CustomText.caption('Test email: a@a.com', color: kDividerColor),
+          CustomText.caption('Test password: Abc1234#', color: kDividerColor),
           const Spacer(),
           CustomText.label(
             'Powered by',

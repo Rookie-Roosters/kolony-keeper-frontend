@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_router.gr.dart';
 import '../../core/themes/themes.dart';
-import '../../global/components/components.dart';
 import 'components/components.dart';
 
 @RoutePage()
@@ -23,20 +22,26 @@ class DashboardScreen extends StatelessWidget {
       ],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
-        final title = tabsRouter.current.name;
+        final title = tabsRouter.current.name.replaceFirst('Route', '');
         return Scaffold(
           backgroundColor: kNeutralColor,
-          body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, mainAxisSize: MainAxisSize.max, children: [
-            HeaderBar(title: title.replaceFirst('Route', '')),
-            Expanded(
-              child: Row(children: [
-                ApplicationBar(activeIndex: tabsRouter.activeIndex),
-                Expanded(
-                  child: child,
-                ),
-              ]),
-            ),
-          ]),
+          body: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+            final screen = MediaQuery.of(context).size.width;
+            return Column(crossAxisAlignment: CrossAxisAlignment.stretch, mainAxisSize: MainAxisSize.max, children: [
+              screen.isDesktop ? HeaderBar(title: title) : HeaderBarMobile(title: title),
+              Expanded(
+                child: screen.isDesktop
+                    ? Row(children: [
+                        ApplicationBar(activeIndex: tabsRouter.activeIndex),
+                        Expanded(child: child),
+                      ])
+                    : Column(crossAxisAlignment: CrossAxisAlignment.stretch, mainAxisSize: MainAxisSize.max, children: [
+                        Expanded(child: child),
+                        ApplicationBarMobile(activeIndex: tabsRouter.activeIndex),
+                      ]),
+              ),
+            ]);
+          }),
         );
       },
     );

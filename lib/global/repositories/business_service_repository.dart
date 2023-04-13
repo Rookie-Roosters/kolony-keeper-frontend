@@ -3,30 +3,31 @@ import '../../core/utils/utils.dart';
 import '../../core/config/config.dart';
 import '../entities/entities.dart';
 import '../models/models.dart';
-abstract class IBusinessServicesRepository{
+
+abstract class IBusinessServicesRepository {
   AsyncResponse<BusinessService> businessServiceCreate(BusinessServiceCreateParams params, String token);
-  AsyncResponse<List<BusinessService>> businessServiceGetAll(String token); 
-  AsyncResponse<bool> businessServiceDelete(BusinessServiceDeleteParams params, String token); 
-  AsyncResponse<BusinessService> businessServiceGetById(BusinessServiceGetByIdParams params, String token); 
+  AsyncResponse<List<BusinessService>> businessServiceGetAll(String token);
+  AsyncResponse<bool> businessServiceDelete(BusinessServiceDeleteParams params, String token);
+  AsyncResponse<BusinessService> businessServiceGetById(BusinessServiceGetByIdParams params, String token);
   AsyncResponse<BusinessService> businessServiceUpdate(BusinessServiceUpdateParamas params, String id, String token);
+  //AsyncResponse<List<BusinessService>> getByBusinessGroups( String token);
 }
 
-class BusinessServicesRepository implements IBusinessServicesRepository{
+class BusinessServicesRepository implements IBusinessServicesRepository {
   final _client = HttpClient('${Environment.kolonyKeeperApi}/business-services');
 
-  
   @override
-  AsyncResponse<BusinessService> businessServiceCreate(BusinessServiceCreateParams params, String token) async{
+  AsyncResponse<BusinessService> businessServiceCreate(BusinessServiceCreateParams params, String token) async {
     try {
       final res = await _client.post('', data: params.toJson());
       return Right(res.data!);
     } catch (e) {
       return Left(Failure.error(e.toString()));
     }
-  } 
+  }
 
   @override
-  AsyncResponse<List<BusinessService>> businessServiceGetAll(String token) async{
+  AsyncResponse<List<BusinessService>> businessServiceGetAll(String token) async {
     try {
       final res = await _client.get('');
       return Right(res.data!);
@@ -36,7 +37,7 @@ class BusinessServicesRepository implements IBusinessServicesRepository{
   }
 
   @override
-  AsyncResponse<BusinessService> businessServiceGetById(BusinessServiceGetByIdParams params, String token) async{
+  AsyncResponse<BusinessService> businessServiceGetById(BusinessServiceGetByIdParams params, String token) async {
     try {
       final res = await _client.get('/${params.id}');
       return Right(res.data!);

@@ -7,7 +7,6 @@ import '../../../../core/themes/themes.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../global/components/components.dart';
 import '../components.dart';
-import '../search_bar/search_bar.dart';
 
 class HeaderBar extends StatelessWidget {
   final String title;
@@ -18,62 +17,71 @@ class HeaderBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: kPrimaryColor.darken(0.12),
-      height: 90,
+      height: 80,
       child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         Container(
           width: kApplicationBarWidth,
           padding: Spacing.all4,
           alignment: Alignment.center,
+          decoration: const BoxDecoration(border: Border(right: BorderSide(color: Colors.white24))),
           child: Assets.app.kolonyKeeper.isotypeNegative.image(),
         ),
-        const VerticalDivider(color: Colors.white24, width: 0),
-
         Row(children: [
           CustomText.display(
             title,
             color: Colors.white,
             textAlign: TextAlign.start,
-          ).paddingHorizontal5.expanded(),
+          ).expanded(),
           const SearchBar().expanded(),
-          const Spacer(),
-          CustomButton.elevated(
-            const Icon(LineAwesome.user, size: 30),
-            onPressed: () => context.router.navigate(const UserRoute()),
+          Align(
+            alignment: Alignment.centerRight,
+            child: CustomButton.outlined(
+              CustomText.title('Manuel'),
+              prefix: const Icon(LineAwesome.user),
+              color: kTertiaryColor,
+              onPressed: () => context.router.navigate(const UserRoute()),
+            ),
+          ).expanded(),
+        ]).paddingHorizontal5.expanded(),
+      ]),
+    );
+  }
+}
+
+class HeaderBarMobile extends StatelessWidget {
+  final String title;
+
+  const HeaderBarMobile({required this.title, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: kPrimaryColor.darken(0.12),
+      height: 80,
+      padding: Spacing.horizontal5,
+      child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Assets.app.kolonyKeeper.isotypeNegative.image(height: 40),
+        ).expanded(),
+        CustomText.display(
+          title,
+          color: Colors.white,
+          textAlign: TextAlign.center,
+        ).expanded(2),
+        Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+          CustomButton.ghost(
+            const Icon(LineAwesome.search_solid),
             color: kTertiaryColor,
-            isCircle: true,
+            onPressed: null,
           ),
           SpacerBox.horizontal,
-          CustomText.title('Manuel', color: Colors.white),
-          SpacerBox.horizontal5,
+          CustomButton.outlined(
+            const Icon(LineAwesome.user),
+            color: kTertiaryColor,
+            onPressed: () => context.router.navigate(const UserRoute()),
+          ),
         ]).expanded(),
-
-//         Row(children: [
-//           SizedBox(width: 80, child: Assets.app.kolonyKeeper.isotypeNegative.image(height: 40)),
-
-//           CustomText.display(title, color: Colors.white).paddingHorizontal5,
-//         ]).expanded(),
-
-// const VerticalDivider(color: Colors.white24, width: 0),
-
-//           const SearchBar().expanded(),
-
-//         const VerticalDivider(color: Colors.white24, width: 0),
-
-//         Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-//           CustomButton.ghost(const Icon(LineAwesome.bell, size: 32), color: Colors.white38, isCircle: true, onPressed: () => context.router.navigate(NotificationsRoute())),
-//           SpacerBox.horizontal,
-//           const VerticalDivider(color: Colors.white24, width: 0),
-//           SpacerBox.horizontal5,
-//           CustomButton.elevated(
-//             const Icon(LineAwesome.user, size: 30),
-//             onPressed: () => context.router.navigate(const UserRoute()),
-//             color: kTertiaryColor,
-//             isCircle: true,
-//           ),
-//           SpacerBox.horizontal,
-//           CustomText.title('Yomero', color: Colors.white),
-//           SpacerBox.horizontal5,
-//         ]).expanded(),
       ]),
     );
   }

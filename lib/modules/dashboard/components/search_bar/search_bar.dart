@@ -9,19 +9,22 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: Spacing.all,
-      decoration: BoxDecoration(color: Colors.white24, borderRadius: kRoundedBorder),
-      child: Row(children: [
-        Icon(
-          LineAwesome.search_solid,
-          color: Colors.white,
-        ),
-        CustomText.title(
-          'Search',
-          color: Colors.white,
-        ).expanded(),
-      ]),
+    return MouseRegion(
+      cursor: SystemMouseCursors.forbidden,
+      child: Container(
+        padding: Spacing.all,
+        decoration: BoxDecoration(color: Colors.white24, borderRadius: kRoundedBorder),
+        child: Row(children: [
+          Icon(
+            LineAwesome.search_solid,
+            color: Colors.white,
+          ),
+          CustomText.title(
+            'Search',
+            color: Colors.white,
+          ).expanded(),
+        ]),
+      ),
     );
   }
 }

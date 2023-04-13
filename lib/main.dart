@@ -31,8 +31,9 @@ class KolonyKeeperApp extends StatelessWidget {
         maxTabletWidth: kDesktopBreakpoint,
         builder: (context, orientation, screenType) {
           return MediaQuery(
-            data: MediaQueryData(textScaleFactor: 1.dp),
+            data: MediaQueryData(textScaleFactor: 0.85),
             child: MaterialApp.router(
+              //useInheritedMediaQuery: true,
               theme: appTheme,
               debugShowCheckedModeBanner: false,
               routerConfig: _appRouter.config(),

@@ -12,10 +12,39 @@ import 'package:flutter/widgets.dart';
 class $AssetsAppGen {
   const $AssetsAppGen();
 
+  $AssetsAppAstraZenecaGen get astraZeneca => const $AssetsAppAstraZenecaGen();
   $AssetsAppKolonyKeeperGen get kolonyKeeper =>
       const $AssetsAppKolonyKeeperGen();
   $AssetsAppRookieRoostersGen get rookieRoosters =>
       const $AssetsAppRookieRoostersGen();
+}
+
+class $AssetsAppAstraZenecaGen {
+  const $AssetsAppAstraZenecaGen();
+
+  /// File path: assets/app/astra-zeneca/isologotype-negative.png
+  AssetGenImage get isologotypeNegative =>
+      const AssetGenImage('assets/app/astra-zeneca/isologotype-negative.png');
+
+  /// File path: assets/app/astra-zeneca/isologotype.png
+  AssetGenImage get isologotype =>
+      const AssetGenImage('assets/app/astra-zeneca/isologotype.png');
+
+  /// File path: assets/app/astra-zeneca/isotype-negative.png
+  AssetGenImage get isotypeNegative =>
+      const AssetGenImage('assets/app/astra-zeneca/isotype-negative.png');
+
+  /// File path: assets/app/astra-zeneca/isotype.png
+  AssetGenImage get isotype =>
+      const AssetGenImage('assets/app/astra-zeneca/isotype.png');
+
+  /// File path: assets/app/astra-zeneca/logotype.png
+  AssetGenImage get logotype =>
+      const AssetGenImage('assets/app/astra-zeneca/logotype.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values =>
+      [isologotypeNegative, isologotype, isotypeNegative, isotype, logotype];
 }
 
 class $AssetsAppKolonyKeeperGen {
