@@ -19,6 +19,17 @@ class $AssetsAppGen {
       const $AssetsAppRookieRoostersGen();
 }
 
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  /// File path: assets/images/dashboard.png
+  AssetGenImage get dashboard =>
+      const AssetGenImage('assets/images/dashboard.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [dashboard];
+}
+
 class $AssetsAppAstraZenecaGen {
   const $AssetsAppAstraZenecaGen();
 
@@ -127,6 +138,7 @@ class Assets {
   Assets._();
 
   static const $AssetsAppGen app = $AssetsAppGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
 class AssetGenImage {
